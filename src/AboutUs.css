@@ -1,0 +1,96 @@
+.about-us-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  text-align: center;
+  color: #1f2937;
+}
+
+.about-us-heading {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #1b4332;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.about-us-tagline {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #2d6a4f;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+
+.about-us-description {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #374151;
+  margin-bottom: 2rem;
+}
+
+.about-us-highlights {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+  text-align: left;
+}
+
+.highlight-card {
+  background: #f8fafc;
+  padding: 1.5rem;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.highlight-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(27, 67, 50, 0.08);
+}
+
+.highlight-icon {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.highlight-card h3 {
+  font-size: 1.15rem;
+  color: #1b4332;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.highlight-card p {
+  font-size: 0.92rem;
+  color: #4b5563;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.about-us-closing {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: #4b5563;
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+}
+
+@media (max-width: 640px) {
+  .about-us-container {
+    padding: 1.75rem 1.25rem;
+  }
+  .about-us-heading {
+    font-size: 1.75rem;
+  }
+  .about-us-highlights {
+    grid-template-columns: 1fr;
+  }
+}
