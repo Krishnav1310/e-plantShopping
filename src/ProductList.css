@@ -246,6 +246,39 @@
   height: 220px;
   overflow: hidden;
   background: #f1f5f9;
+  cursor: pointer;
+}
+
+.image-zoom-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 28, 21, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  backdrop-filter: blur(2px);
+}
+
+.image-zoom-overlay span {
+  background: rgba(255, 255, 255, 0.95);
+  color: #1b4332;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.45rem 0.95rem;
+  border-radius: 9999px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(6px);
+  transition: transform 0.25s ease;
+}
+
+.plant-card-image-wrap:hover .image-zoom-overlay {
+  opacity: 1;
+}
+
+.plant-card-image-wrap:hover .image-zoom-overlay span {
+  transform: translateY(0);
 }
 
 .plant-card-image {

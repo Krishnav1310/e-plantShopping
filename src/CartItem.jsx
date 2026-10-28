@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeItem, updateQuantity } from './CartSlice';
+import CheckoutModal from './CheckoutModal';
 import './CartItem.css';
 
 const CartItem = ({ onContinueShopping }) => {
+  const [showCheckout, setShowCheckout] = useState(false);
   const cart = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
+
+  const fallbackPlantImage =
+    'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400" fill="%23eef7ee"><rect width="100%" height="100%" fill="%23f0fdf4"/><circle cx="300" cy="200" r="110" fill="%23dcfce7"/><path d="M300 120 C340 160, 360 210, 300 260 C240 210, 260 160, 300 120 Z" fill="%23166534"/><path d="M300 140 L300 245" stroke="%2386efac" stroke-width="4"/><text x="300" y="310" font-family="sans-serif" font-size="18" font-weight="bold" fill="%2314532d" text-anchor="middle">Paradise Nursery Plant</text></svg>';
 
   // Helper function to extract numeric value from cost string (e.g., "$15" -> 15)
   const parseCost = (cost) => {
@@ -62,7 +67,7 @@ const CartItem = ({ onContinueShopping }) => {
 
   // Checkout button click handler
   const handleCheckoutShopping = () => {
-    alert('Thank you for shopping at Paradise Nursery! Checkout functionality will be added in a future update.');
+    setShowCheckout(true);
   };
 
   const totalAmount = calculateTotalAmount();
@@ -103,6 +108,10 @@ const CartItem = ({ onContinueShopping }) => {
                     src={item.image} 
                     alt={item.name} 
                     loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = fallbackPlantImage;
+                    }}
                   />
                 </div>
 
@@ -184,6 +193,19 @@ const CartItem = ({ onContinueShopping }) => {
             </div>
           </div>
         </>
+      )}
+
+      {showCheckout && (
+        <CheckoutModal
+          cartItems={cart}
+          totalAmount={totalAmount}
+          totalQuantity={totalQuantity}
+          onClose={() => setShowCheckout(false)}
+          onOrderComplete={() => {
+            setShowCheckout(false);
+            if (onContinueShopping) onContinueShopping();
+          }}
+        />
       )}
     </div>
   );

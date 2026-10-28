@@ -2,12 +2,17 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from './CartSlice';
 import CartItem from './CartItem';
+import PlantImageModal from './PlantImageModal';
 import './ProductList.css';
 
 function ProductList({ onHomeClick }) {
   const [showCart, setShowCart] = useState(false);
   const [addedToCart, setAddedToCart] = useState({});
+  const [selectedPlantModal, setSelectedPlantModal] = useState(null);
   const dispatch = useDispatch();
+
+  const fallbackPlantImage =
+    'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400" fill="%23eef7ee"><rect width="100%" height="100%" fill="%23f0fdf4"/><circle cx="300" cy="200" r="110" fill="%23dcfce7"/><path d="M300 120 C340 160, 360 210, 300 260 C240 210, 260 160, 300 120 Z" fill="%23166534"/><path d="M300 140 L300 245" stroke="%2386efac" stroke-width="4"/><text x="300" y="310" font-family="sans-serif" font-size="18" font-weight="bold" fill="%2314532d" text-anchor="middle">Paradise Nursery Plant</text></svg>';
 
   const cartItems = useSelector((state) => state.cart.items);
   const totalCartQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
@@ -279,14 +284,28 @@ function ProductList({ onHomeClick }) {
                     const alreadyInCart = isPlantInCart(plant.name);
                     return (
                       <article className="plant-card" key={plant.name}>
-                        <div className="plant-card-image-wrap">
+                        <div 
+                          className="plant-card-image-wrap"
+                          onClick={() => setSelectedPlantModal(plant)}
+                          title="Click to view full photo & plant care details"
+                          role="button"
+                          tabIndex={0}
+                          onKeyDown={(e) => e.key === 'Enter' && setSelectedPlantModal(plant)}
+                        >
                           <img
                             src={plant.image}
                             alt={plant.name}
                             className="plant-card-image"
                             loading="lazy"
+                            onError={(e) => {
+                              e.currentTarget.onerror = null;
+                              e.currentTarget.src = fallbackPlantImage;
+                            }}
                           />
                           <span className="plant-price-pill">{plant.cost}</span>
+                          <div className="image-zoom-overlay">
+                            <span>🔍 View Image</span>
+                          </div>
                         </div>
 
                         <div className="plant-card-body">
@@ -329,6 +348,18 @@ function ProductList({ onHomeClick }) {
           </div>
         )}
       </main>
+
+      {selectedPlantModal && (
+        <PlantImageModal
+          plant={selectedPlantModal}
+          onClose={() => setSelectedPlantModal(null)}
+          onAddToCart={(p) => {
+            handleAddToCart(p);
+            setSelectedPlantModal(null);
+          }}
+          isInCart={isPlantInCart(selectedPlantModal.name)}
+        />
+      )}
     </div>
   );
 }

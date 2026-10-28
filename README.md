@@ -13,6 +13,9 @@ Paradise Nursery is designed to bring the tranquility and health benefits of ind
 - Add plants to the shopping cart, with dynamic button states ("Add to Cart" → "Added to Cart").
 - View a live cart badge counter in the top navigation bar updating instantly across the app.
 - Manage cart items with full quantity controls (`+`, `-`, and delete), with automatic recalculation of item subtotals and grand totals.
+- Inspect plants up close via an interactive Plant Image & Botanical Care preview modal.
+- Checkout with multiple payment methods: **UPI Online Payment with Dynamic QR Code**, **Credit/Debit Card**, **Net Banking**, and **Cash on Delivery (COD)**.
+- Generate an instant, printable order invoice receipt with Order ID, customer address, tracking status, and price breakdown.
 - Seamlessly transition between the catalog and the cart with "Continue Shopping" and "Checkout" actions.
 
 ---
